@@ -9,6 +9,8 @@ import styled.css
 import styled.styledDiv
 import styled.styledInput
 
+import Polyglot
+
 external interface WelcomeProps : RProps {
     var name: String
 }
@@ -29,6 +31,8 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
             }
             +"Hello, ${state.name}"
             +" Your name backwards is ${state.name.reversed()}!"
+            var polyglot = Polyglot()
+            console.log("Polyglot: ", polyglot)
         }
         styledInput {
             css {
