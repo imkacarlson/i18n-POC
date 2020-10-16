@@ -22,7 +22,7 @@ import Polyglot.PluralRules
 
 @JsModule("node-polyglot")
 @JsNonModule
-external open class Polyglot(options: PolyglotOptions = definedExternally) {
+open external class Polyglot(options: PolyglotOptions = definedExternally) {
     open fun extend(phrases: Any, prefix: String = definedExternally)
     open fun t(phrase: String, options: Number = definedExternally): String
     open fun t(phrase: String, options: InterpolationOptions = definedExternally): String
@@ -41,9 +41,7 @@ external open class Polyglot(options: PolyglotOptions = definedExternally) {
         var `_`: String?
             get() = definedExternally
             set(value) = definedExternally
-        @nativeGetter
         operator fun get(interpolationKey: String): Any?
-        @nativeSetter
         operator fun set(interpolationKey: String, value: Any)
     }
     interface InterpolationTokenOptions {
@@ -55,15 +53,11 @@ external open class Polyglot(options: PolyglotOptions = definedExternally) {
             set(value) = definedExternally
     }
     interface `T$1` {
-        @nativeGetter
         operator fun get(lang: String): ((n: Number) -> Number)?
-        @nativeSetter
         operator fun set(lang: String, value: (n: Number) -> Number)
     }
     interface `T$2` {
-        @nativeGetter
         operator fun get(lang: String): Array<String>?
-        @nativeSetter
         operator fun set(lang: String, value: Array<String>)
     }
     interface PluralRules {
