@@ -1,1 +1,1 @@
-Currently working to internationalize a Kotlin/JS project. This is just some messing around/proof-of-concept code for calling [Polyglot.js](https://airbnb.io/polyglot.js/) from Kotlin.
+Currently working to internationalize a Kotlin/JS project. This is just some messing around/proof-of-concept code for calling <a href = "https://airbnb.io/polyglot.js/" target = "_blank">Polyglot.js</a> from Kotlin.
