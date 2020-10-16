@@ -1,0 +1,1 @@
+Currently working to internationalize a Kotlin/JS project. This is just some messing around/proof-of-concept code for calling [Polyglot.js](https://airbnb.io/polyglot.js/) from Kotlin.
