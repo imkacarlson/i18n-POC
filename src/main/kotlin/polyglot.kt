@@ -25,7 +25,7 @@ import Polyglot.PluralRules
 open external class Polyglot(options: PolyglotOptions = definedExternally) {
     open fun extend(phrases: Any, prefix: String = definedExternally)
     open fun t(phrase: String, options: Number = definedExternally): String
-    open fun t(phrase: String, options: InterpolationOptions = definedExternally): String
+    //open fun t(phrase: String, options: InterpolationOptions = definedExternally): String
     open fun clear()
     open fun replace(phrases: Any)
     open fun locale(locale: String = definedExternally): String

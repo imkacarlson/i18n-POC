@@ -50,9 +50,13 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         }
         div {
             var polyglot = Polyglot()
-            console.log("Polyglot: ", polyglot)
+            val phrases = mapOf("greeting" to "Hello World!")
+            polyglot.extend(phrases = phrases)
             p {
-                + "Hello World!"
+                + polyglot.t("greeting")
+            }
+            p {
+                + (phrases["greeting"] ?: error(""))
             }
         }
     }
