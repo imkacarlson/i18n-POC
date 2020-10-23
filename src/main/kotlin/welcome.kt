@@ -8,6 +8,8 @@ import react.RState
 import styled.css
 import styled.styledDiv
 import styled.styledInput
+import react.dom.*
+import styled.*
 
 import Polyglot
 
@@ -31,8 +33,6 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
             }
             +"Hello, ${state.name}"
             +" Your name backwards is ${state.name.reversed()}!"
-            var polyglot = Polyglot()
-            console.log("Polyglot: ", polyglot)
         }
         styledInput {
             css {
@@ -46,6 +46,13 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
                             WelcomeState(name = (event.target as HTMLInputElement).value)
                     )
                 }
+            }
+        }
+        div {
+            var polyglot = Polyglot()
+            console.log("Polyglot: ", polyglot)
+            p {
+                + "Hello World!"
             }
         }
     }
