@@ -50,16 +50,11 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         }
         div {
             var polyglot = Polyglot()
-            //val phrases = mapOf("greeting" to "Hello World!")
-            //polyglot.extend(phrases = phrases)
-
-            var hashMap : HashMap<String, String> = HashMap<String, String> ()
-            hashMap["greeting"] = "HelloWorld!"
-            polyglot.extend(hashMap)
+            val phrases = mapOf("greeting" to "Hello World!")
+            polyglot.extend(phrases = phrases)
 
             p {
-                //+ polyglot.t("greeting")
-                + polyglot.has("greeting").toString()
+                + polyglot.t("greeting")
             }
         }
     }
