@@ -1,10 +1,6 @@
 import kotlinx.html.InputType
 import kotlinx.html.js.onChangeFunction
 import org.w3c.dom.HTMLInputElement
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
 import styled.css
 import styled.styledDiv
 import styled.styledInput
@@ -12,18 +8,34 @@ import react.dom.*
 import styled.*
 
 import Polyglot
+import react.*
 
 external interface WelcomeProps : RProps {
     var name: String
 }
 
-data class WelcomeState(val name: String) : RState
+class WelcomeState() : RState {
+    var name = ""
+    var polyglot = Polyglot()
+}
 
 @JsExport
 class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(props) {
 
     init {
-        state = WelcomeState(props.name)
+        state = WelcomeState()
+        setState {
+            name = "Phil"
+        }
+
+        val phrases = mapOf("greeting" to "Hello World!")
+        state.polyglot.extend(phrases = phrases)
+
+        if (state.polyglot.has("greeting")){
+            println("has greeting")
+        }else {
+            println("does not have greeting")
+        }
     }
 
     override fun RBuilder.render() {
@@ -38,23 +50,20 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
             css {
                 +WelcomeStyles.textInput
             }
+
             attrs {
                 type = InputType.text
                 value = state.name
                 onChangeFunction = { event ->
-                    setState(
-                            WelcomeState(name = (event.target as HTMLInputElement).value)
-                    )
+                    setState{
+                        state.name = (event.target as HTMLInputElement).value
+                    }
                 }
             }
         }
         div {
-            var polyglot = Polyglot()
-            val phrases = mapOf("greeting" to "Hello World!")
-            polyglot.extend(phrases = phrases)
-
             p {
-                + polyglot.t("greeting")
+                + state.polyglot.t("greeting")
             }
         }
     }
