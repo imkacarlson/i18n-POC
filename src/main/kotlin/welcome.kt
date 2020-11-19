@@ -15,7 +15,6 @@ external interface WelcomeProps : RProps {
 }
 
 class WelcomeState() : RState {
-    var name = ""
     var polyglot = Polyglot()
 }
 
@@ -24,41 +23,14 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
 
     init {
         state = WelcomeState()
-        setState {
-            name = "Phil"
-        }
 
-        val phrases = mapOf("greeting" to "Hello World!")
         state.polyglot.extend(phrases = js("{greeting : 'Hello Keith'}"))
-
-        if (state.polyglot.has("greeting")){
-            println("has greeting")
-        }else {
-            println("does not have greeting")
-        }
     }
 
     override fun RBuilder.render() {
         styledDiv {
             css {
                 +WelcomeStyles.textContainer
-            }
-            +"Hello, ${state.name}"
-            +" Your name backwards is ${state.name.reversed()}!"
-        }
-        styledInput {
-            css {
-                +WelcomeStyles.textInput
-            }
-
-            attrs {
-                type = InputType.text
-                value = state.name
-                onChangeFunction = { event ->
-                    setState{
-                        state.name = (event.target as HTMLInputElement).value
-                    }
-                }
             }
         }
         div {
