@@ -28,11 +28,6 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
     }
 
     override fun RBuilder.render() {
-        styledDiv {
-            css {
-                +WelcomeStyles.textContainer
-            }
-        }
         div {
             p {
                 + state.polyglot.t("greeting")
