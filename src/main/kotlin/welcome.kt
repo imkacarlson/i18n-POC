@@ -15,7 +15,8 @@ external interface WelcomeProps : RProps {
 }
 
 class WelcomeState() : RState {
-    var polyglot = Polyglot()
+    var polyglotEN = Polyglot()
+    var polyglotES = Polyglot()
 }
 
 @JsExport
@@ -24,13 +25,20 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
     init {
         state = WelcomeState()
 
-        state.polyglot.extend(phrases = js("{greeting : 'Hello Keith'}"))
+        state.polyglotEN.extend(phrases = js("{greeting : 'Hello World!'}"))
+        state.polyglotES.extend(phrases = js("{greeting : 'Hola Mundo!'}"))
     }
 
     override fun RBuilder.render() {
         div {
             p {
-                + state.polyglot.t("greeting")
+                + state.polyglotEN.t("greeting")
+            }
+        }
+
+        div {
+            p {
+                + state.polyglotES.t("greeting")
             }
         }
     }
