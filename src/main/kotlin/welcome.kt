@@ -29,7 +29,7 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         }
 
         val phrases = mapOf("greeting" to "Hello World!")
-        state.polyglot.extend(phrases = phrases)
+        state.polyglot.extend(phrases = js("{greeting : 'Hello Keith'}"))
 
         if (state.polyglot.has("greeting")){
             println("has greeting")
