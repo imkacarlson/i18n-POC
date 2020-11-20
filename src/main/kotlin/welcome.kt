@@ -15,18 +15,16 @@ var polyglotEN = Polyglot()
 var polyglotES = Polyglot()
 
 external interface WelcomeProps : RProps {
-    var name: String
+    var phrase: String
 }
 
-class WelcomeState(val phraseIn: String) : RState {
-    var phrase = phraseIn
-}
+class WelcomeState(val phrase: String) : RState
 
 @JsExport
 class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(props) {
 
     init {
-        state = WelcomeState("default")
+        state = WelcomeState(props.phrase)
 
         polyglotEN.extend(phrases = js("{greeting : 'Hello World!'}"))
         polyglotES.extend(phrases = js("{greeting : 'Hola Mundo!'}"))
@@ -42,7 +40,7 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         button {
             attrs.onClickFunction = { event ->
                 setState(
-                        WelcomeState(phraseIn = polyglotES.t("greeting"))
+                        WelcomeState(phrase = polyglotES.t("greeting"))
                 )
             }
             + "Spanish"
@@ -51,7 +49,7 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         button {
             attrs.onClickFunction = { event ->
                 setState(
-                        WelcomeState(phraseIn = polyglotEN.t("greeting"))
+                        WelcomeState(phrase = polyglotEN.t("greeting"))
                 )
             }
             + "English"
