@@ -8,38 +8,57 @@ import react.dom.*
 import styled.*
 
 import Polyglot
+import kotlinx.html.js.onClickFunction
 import react.*
 
 external interface WelcomeProps : RProps {
     var name: String
 }
 
-class WelcomeState() : RState {
+class WelcomeState(val phraseIn: String) : RState {
     var polyglotEN = Polyglot()
     var polyglotES = Polyglot()
+
+    var phrase = phraseIn
+
+    var en = false
 }
 
 @JsExport
 class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(props) {
 
     init {
-        state = WelcomeState()
+        state = WelcomeState("default")
 
         state.polyglotEN.extend(phrases = js("{greeting : 'Hello World!'}"))
         state.polyglotES.extend(phrases = js("{greeting : 'Hola Mundo!'}"))
+
+        state.phrase = state.polyglotEN.t("greeting")
     }
 
     override fun RBuilder.render() {
         div {
             p {
-                + state.polyglotEN.t("greeting")
+                + state.phrase
             }
         }
 
-        div {
-            p {
-                + state.polyglotES.t("greeting")
+        button {
+            attrs.onClickFunction = { event ->
+                setState(
+                        WelcomeState(phraseIn = state.polyglotES.t("greeting"))
+                )
             }
+            + "Spanish"
+        }
+
+        button {
+            attrs.onClickFunction = { event ->
+                setState(
+                        WelcomeState(phraseIn = state.polyglotEN.t("greeting"))
+                )
+            }
+            + "English"
         }
     }
 }
