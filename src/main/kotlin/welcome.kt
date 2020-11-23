@@ -16,18 +16,21 @@ var polyglotES = Polyglot()
 
 external interface WelcomeProps : RProps {
     var phrase: String
+    var cars: String
+    var english : Boolean
 }
 
-class WelcomeState(val phrase: String) : RState
+class WelcomeState(val phrase: String, val cars: String, val english: Boolean) : RState
 
 @JsExport
 class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(props) {
 
     init {
-        state = WelcomeState(props.phrase)
+        state = WelcomeState(props.phrase, props.phrase, true)
 
-        polyglotEN.extend(phrases = js("{greeting : 'Hello World!'}"))
-        polyglotES.extend(phrases = js("{greeting : 'Hola Mundo!'}"))
+        polyglotEN.extend(phrases = js("{'main': {'greeting': 'Hello World!' }, 'car_pluralization': '%{smart_count} car |||| %{smart_count} cars'}"))
+
+        polyglotES.extend(phrases = js("{'main': {'greeting': 'Holla Mundo!' }, 'car_pluralization': '%{smart_count} coche |||| %{smart_count} coches'}"))
     }
 
     override fun RBuilder.render() {
@@ -40,7 +43,8 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         button {
             attrs.onClickFunction = { event ->
                 setState(
-                        WelcomeState(phrase = polyglotES.t("greeting"))
+                        WelcomeState(phrase = polyglotES.t("main.greeting"),
+                                cars = polyglotES.t("car_pluralization", 2), false)
                 )
             }
             + "Spanish"
@@ -49,10 +53,36 @@ class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(prop
         button {
             attrs.onClickFunction = { event ->
                 setState(
-                        WelcomeState(phrase = polyglotEN.t("greeting"))
+                        WelcomeState(phrase = polyglotEN.t("main.greeting"),
+                                cars = polyglotEN.t("car_pluralization", 2), true)
                 )
             }
             + "English"
+        }
+        div {
+            styledInput {
+                css {
+                    +WelcomeStyles.textInput
+                }
+                attrs {
+                    type = InputType.text
+                    onChangeFunction = { event ->
+                        setState(
+                                if(state.english) {
+                                    WelcomeState(phrase = polyglotEN.t("main.greeting"),
+                                            cars = polyglotEN.t("car_pluralization", ((event.target as HTMLInputElement).value).toInt()), true)
+                                }else{
+                                    WelcomeState(phrase = polyglotES.t("main.greeting"),
+                                            cars = polyglotES.t("car_pluralization", ((event.target as HTMLInputElement).value).toInt()), false)
+                                })
+                    }
+                }
+            }
+        }
+        div {
+            p {
+                + state.cars
+            }
         }
     }
 }
